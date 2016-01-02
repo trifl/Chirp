@@ -1,0 +1,13 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'Chirp_Example', :exclusive => true do
+  pod "Chirp", :path => "../"
+end
+
+target 'Chirp_Tests', :exclusive => true do
+  pod "Chirp", :path => "../"
+
+  pod 'Quick', '~> 0.8.0'
+  pod 'Nimble', '3.0.0'
+end
