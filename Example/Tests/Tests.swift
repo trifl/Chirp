@@ -6,11 +6,7 @@ import Chirp
 
 class TableOfContentsSpec: QuickSpec {
     override func spec() {
-        describe("Chirp") {
-            it("should exist") {
-                expect(Chirp.sharedManager) != nil
-            }
-            
+        describe("Chirp") {            
             describe("when prepare sound") {
                 context("and the file exists") {
                     beforeEach {

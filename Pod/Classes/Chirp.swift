@@ -1,6 +1,6 @@
 import AVFoundation
 
-public class Chirp: NSObject {
+public class Chirp {
     // MARK: - Constants
     private let kDefaultExtension = "wav"
     
