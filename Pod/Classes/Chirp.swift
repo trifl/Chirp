@@ -39,9 +39,8 @@ public class Chirp {
     
     public func playSound(fileName fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
-        let sound = soundForKey(fixedSoundFileName) ?? prepareSound(fileName: fileName)
-        if sound != nil {
-            AudioServicesPlaySystemSound(sound!.id)
+        if let sound = soundForKey(fixedSoundFileName) {
+            AudioServicesPlaySystemSound(sound.id)
         }
     }
     

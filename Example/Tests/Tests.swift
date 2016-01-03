@@ -69,23 +69,9 @@ class TableOfContentsSpec: QuickSpec {
                         Chirp.sharedManager.playSound(fileName: "test.mp3")
                     }
                     
-                    afterEach {
-                       Chirp.sharedManager.removeSound(fileName: "test.mp3")
-                    }
-                    
-                    it("should have sound in cache") {
+                    it("should not have sound in cache") {
                         let keyExists = Chirp.sharedManager.sounds["test.mp3"] != nil
-                        expect(keyExists) == true
-                    }
-                    
-                    context("and you play it twice") {
-                        beforeEach {
-                            Chirp.sharedManager.playSound(fileName: "test.mp3")
-                        }
-                        
-                        it("should still have a retain of 1") {
-                            expect(Chirp.sharedManager.sounds["test.mp3"]?.count) == 1
-                        }
+                        expect(keyExists) == false
                     }
                 }
             }
