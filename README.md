@@ -14,7 +14,7 @@ pod 'Chirp', '~> 1.0'
 You can drop Chirp.swift directly into your project, or drag the Chirp project into your workspace.
 
 ### Sample code
-`prepareSound` lets you preload a sound into memory
+`prepareSound` is used to preload a sound into memory. This increases the retain count of the sound by 1. You must call this method before calling playSound
 ```swift
 /* MyViewController.swift */
 
@@ -35,20 +35,6 @@ func submitButtonTouched(button: UIButton) {
     
     // example function that might get called when you touch a button
     submitForm() 
-}
-```
-
-`playSound` can also just play sounds on the fly
-```swift
-func submissionDidFinish(success: Bool) {
-    if success {
-        // This will also play immediately because you loaded the sound into memory in ViewDidLoad()
-        Chirp.sharedManager.playSound("ding.mp3")  
-    } else {
-        // This sound was not preloaded into memory, but that's ok! playSound will load it into memory and play it.
-        // You might experience a noticeable delay for this sound
-        Chirp.sharedManager.playSound("oops.mp3")
-    }
 }
 ```
 
