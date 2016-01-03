@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Chirp"
-  s.version          = "1.1.0"
+  s.version          = "1.1.1"
   s.summary          = "The easiest way to prepare, play, and remove sounds in your Swift app!"
 
 # This description is used to generate tags and improve search results.
