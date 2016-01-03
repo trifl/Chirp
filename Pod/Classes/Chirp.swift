@@ -19,11 +19,11 @@ public class Chirp {
     public private(set) var sounds = [String:Sound]()
     
     // MARK: - Public
-    public func prepareSound(fileName fileName: String) -> Sound? {
+    public func prepareSound(fileName fileName: String) -> String? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
             sound.count++
-            return sound
+            return fixedSoundFileName
         }
         
         if let pathURL = pathURLForSound(fileName: fixedSoundFileName) {
@@ -31,7 +31,7 @@ public class Chirp {
             AudioServicesCreateSystemSoundID(pathURL, &soundID)
             let sound = Sound(id: soundID)
             sounds[fixedSoundFileName] = sound
-            return sound
+            return fixedSoundFileName
         }
         
         return nil
