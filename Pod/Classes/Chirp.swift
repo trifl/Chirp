@@ -1,6 +1,14 @@
 import AVFoundation
 
 public class Chirp {
+    public class Sound {
+        public var id: SystemSoundID
+        public private(set) var count: Int = 1
+        init(id: SystemSoundID) {
+            self.id = id
+        }
+    }
+    
     // MARK: - Constants
     private let kDefaultExtension = "wav"
     
@@ -8,20 +16,22 @@ public class Chirp {
     public static let sharedManager = Chirp()
     
     // MARK: - Private Variables
-    public private(set) var soundIDs = [String:SystemSoundID]()
+    public private(set) var sounds = [String:Sound]()
     
     // MARK: - Public
-    public func prepareSound(fileName fileName: String) -> SystemSoundID? {
+    public func prepareSound(fileName fileName: String) -> Sound? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
-        if let soundID = soundIDForKey(fixedSoundFileName) {
-            return soundID
+        if let sound = soundForKey(fixedSoundFileName) {
+            sound.count++
+            return sound
         }
         
         if let pathURL = pathURLForSound(fileName: fixedSoundFileName) {
             var soundID: SystemSoundID = 0
             AudioServicesCreateSystemSoundID(pathURL, &soundID)
-            soundIDs[fixedSoundFileName] = soundID
-            return soundID
+            let sound = Sound(id: soundID)
+            sounds[fixedSoundFileName] = sound
+            return sound
         }
         
         return nil
@@ -29,23 +39,26 @@ public class Chirp {
     
     public func playSound(fileName fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
-        let soundID = soundIDForKey(fixedSoundFileName) ?? prepareSound(fileName: fileName)
-        if soundID != nil {
-            AudioServicesPlaySystemSound(soundID!)
+        let sound = soundForKey(fixedSoundFileName) ?? prepareSound(fileName: fileName)
+        if sound != nil {
+            AudioServicesPlaySystemSound(sound!.id)
         }
     }
     
     public func removeSound(fileName fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
-        if let soundID = soundIDForKey(fixedSoundFileName) {
-            AudioServicesDisposeSystemSoundID(soundID)
-            soundIDs.removeValueForKey(fixedSoundFileName)
+        if let sound = soundForKey(fixedSoundFileName) {
+            sound.count--
+            if sound.count <= 0 {
+                AudioServicesDisposeSystemSoundID(sound.id)
+                sounds.removeValueForKey(fixedSoundFileName)
+            }
         }
     }
     
     // MARK: - Private
-    private func soundIDForKey(key: String) -> SystemSoundID? {
-        return soundIDs[key]
+    private func soundForKey(key: String) -> Sound? {
+        return sounds[key]
     }
     
     private func fixedSoundFileName(fileName fileName: String) -> String {

@@ -18,7 +18,7 @@ class TableOfContentsSpec: QuickSpec {
                     }
                     
                     it("should have sound in cache") {
-                        let keyExists = Chirp.sharedManager.soundIDs["test.mp3"] != nil
+                        let keyExists = Chirp.sharedManager.sounds["test.mp3"] != nil
                         expect(keyExists) == true
                     }
 
@@ -28,8 +28,21 @@ class TableOfContentsSpec: QuickSpec {
                         }
                         
                         it("should not have sound in cache") {
-                            let keyExists = Chirp.sharedManager.soundIDs["test.mp3"] != nil
+                            let keyExists = Chirp.sharedManager.sounds["test.mp3"] != nil
                             expect(keyExists) == false
+                        }
+                    }
+                    
+                    describe("when removing a sound once but preparing twice") {
+                        beforeEach {
+                            Chirp.sharedManager.prepareSound(fileName: "test.mp3")
+                            Chirp.sharedManager.removeSound(fileName: "test.mp3")
+                        }
+                        
+                        it("should have sound in cache with count 1") {
+                            let keyExists = Chirp.sharedManager.sounds["test.mp3"] != nil
+                            expect(keyExists) == true
+                            expect(Chirp.sharedManager.sounds["test.mp3"]?.count) == 1
                         }
                     }
                 }
@@ -44,11 +57,39 @@ class TableOfContentsSpec: QuickSpec {
                     }
                     
                     it("should not have sound in cache") {
-                        let keyExists = Chirp.sharedManager.soundIDs["test2"] != nil
+                        let keyExists = Chirp.sharedManager.sounds["test2"] != nil
                         expect(keyExists) == false
                     }
                 }
             }
+            
+            describe("when play sound without prepare") {
+                context("and the file exists") {
+                    beforeEach {
+                        Chirp.sharedManager.playSound(fileName: "test.mp3")
+                    }
+                    
+                    afterEach {
+                       Chirp.sharedManager.removeSound(fileName: "test.mp3")
+                    }
+                    
+                    it("should have sound in cache") {
+                        let keyExists = Chirp.sharedManager.sounds["test.mp3"] != nil
+                        expect(keyExists) == true
+                    }
+                    
+                    context("and you play it twice") {
+                        beforeEach {
+                            Chirp.sharedManager.playSound(fileName: "test.mp3")
+                        }
+                        
+                        it("should still have a retain of 1") {
+                            expect(Chirp.sharedManager.sounds["test.mp3"]?.count) == 1
+                        }
+                    }
+                }
+            }
+        
         }
     }
 }
