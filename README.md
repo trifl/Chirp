@@ -3,14 +3,14 @@
 The easiest way to prepare, play, and remove sounds in your Swift app!
 
 ##Installation
-###Cocoapods Installation
+###CocoaPods Installation
 Chirp is available on CocoaPods. Just add the following to your project Podfile:
 
 ```
 pod 'Chirp', '~> 1.1'
 ```
 
-###Non-Cocoapods Installation
+###Non-CocoaPods Installation
 You can drop Chirp.swift directly into your project, or drag the Chirp project into your workspace.
 
 ### Sample code
