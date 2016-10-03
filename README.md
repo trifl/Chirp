@@ -1,5 +1,8 @@
 # Chirp
 
+[![CocoaPods](https://cocoapod-badges.herokuapp.com/v/Chirp/badge.svg)](http://cocoapods.org/?q=Chirp)
+![Swift 3.0](https://img.shields.io/badge/swift-3.0-orange.svg)
+
 The easiest way to prepare, play, and remove sounds in your Swift app!
 
 ##Installation
@@ -20,10 +23,10 @@ You can drop Chirp.swift directly into your project, or drag the Chirp project i
 
 override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     // Load sounds into memory
-    Chirp.sharedManager.prepareSound("boop") // default extension is .wav
-    Chirp.sharedManager.prepareSound("ding.mp3") // so other extensions you must name explicitly
+    Chirp.sharedManager.prepareSound(fileName: "boop") // default extension is .wav
+    Chirp.sharedManager.prepareSound(fileName: "ding.mp3") // so other extensions you must name explicitly
 }
 ```
 
@@ -31,10 +34,10 @@ override func viewDidLoad() {
 ```swift
 func submitButtonTouched(button: UIButton) {
     // Since the sound is already loaded into memory, this will play immediately
-    Chirp.sharedManager.playSound("boop") 
-    
+    Chirp.sharedManager.playSound(fileName: "boop")
+
     // example function that might get called when you touch a button
-    submitForm() 
+    submitForm()
 }
 ```
 
@@ -42,10 +45,10 @@ func submitButtonTouched(button: UIButton) {
 ```swift
 deinit {
     // Cleanup is really simple!
-    Chirp.sharedManager.removeSound("boop")
-    Chirp.sharedManager.removeSound("ding.mp3")
-    Chirp.sharedManager.removeSound("oops.mp3")
-    
+    Chirp.sharedManager.removeSound(fileName: "boop")
+    Chirp.sharedManager.removeSound(fileName: "ding.mp3")
+    Chirp.sharedManager.removeSound(fileName: "oops.mp3")
+
     // If you never loaded the sounds, e.g. viewDidLoad wasn't called, or submission never failed or succeeded,
     // that's ok, because these will function as no-ops
 }
