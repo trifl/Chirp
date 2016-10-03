@@ -10,7 +10,7 @@ open class Chirp {
     }
     
     // MARK: - Constants
-    fileprivate let kDefaultExtension = "wav"
+    fileprivate let DefaultExtension = "wav"
     
     // MARK: - Singleton
     open static let sharedManager = Chirp()
@@ -19,6 +19,13 @@ open class Chirp {
     open fileprivate(set) var sounds = [String:Sound]()
     
     // MARK: - Public
+
+
+    /// Prepare a sound given its file name
+    ///
+    /// - parameter fileName: The file name
+    ///
+    /// - returns: The file name if successfully loaded
     open func prepareSound(fileName: String) -> String? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
@@ -36,14 +43,22 @@ open class Chirp {
         
         return nil
     }
-    
+
+
+    /// Play a sound given its file name
+    ///
+    /// - parameter fileName: The file name
     open func playSound(fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
             AudioServicesPlaySystemSound(sound.id)
         }
     }
-    
+
+
+    /// Remove a sound given its file name
+    ///
+    /// - parameter fileName: The file name
     open func removeSound(fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
@@ -65,7 +80,7 @@ open class Chirp {
         var fixedSoundFileName = fileName.trimmingCharacters(in: .whitespacesAndNewlines)
         var soundFileComponents = fixedSoundFileName.components(separatedBy: ".")
         if soundFileComponents.count == 1 {
-            fixedSoundFileName = "\(soundFileComponents[0]).\(kDefaultExtension)"
+            fixedSoundFileName = "\(soundFileComponents[0]).\(DefaultExtension)"
         }
         return fixedSoundFileName
     }
