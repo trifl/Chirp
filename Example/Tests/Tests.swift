@@ -10,7 +10,7 @@ class TableOfContentsSpec: QuickSpec {
             describe("when prepare sound") {
                 context("and the file exists") {
                     beforeEach {
-                        Chirp.sharedManager.prepareSound(fileName: "test.mp3")
+                        _ = Chirp.sharedManager.prepareSound(fileName: "test.mp3")
                     }
                     
                     afterEach {
@@ -35,8 +35,8 @@ class TableOfContentsSpec: QuickSpec {
                     
                     describe("when removing a sound once but preparing twice") {
                         beforeEach {
-                            Chirp.sharedManager.prepareSound(fileName: "test.mp3")
-                            Chirp.sharedManager.removeSound(fileName: "test.mp3")
+                            _ = Chirp.sharedManager.prepareSound(fileName: "test.mp3")
+                            _ = Chirp.sharedManager.removeSound(fileName: "test.mp3")
                         }
                         
                         it("should have sound in cache with count 1") {
@@ -49,7 +49,7 @@ class TableOfContentsSpec: QuickSpec {
                 
                 context("and the file doesn't exist") {
                     beforeEach {
-                        Chirp.sharedManager.prepareSound(fileName: "test2")
+                        _ = Chirp.sharedManager.prepareSound(fileName: "test2")
                     }
                     
                     afterEach {
