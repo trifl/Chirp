@@ -1,34 +1,35 @@
 import AVFoundation
 
-public class Chirp {
-    public class Sound {
-        public var id: SystemSoundID
-        public private(set) var count: Int = 1
+open class Chirp {
+    open class Sound {
+        open var id: SystemSoundID
+        open fileprivate(set) var count: Int = 1
         init(id: SystemSoundID) {
             self.id = id
         }
     }
     
     // MARK: - Constants
-    private let kDefaultExtension = "wav"
+    fileprivate let kDefaultExtension = "wav"
     
     // MARK: - Singleton
-    public static let sharedManager = Chirp()
+    open static let sharedManager = Chirp()
     
     // MARK: - Private Variables
-    public private(set) var sounds = [String:Sound]()
+    open fileprivate(set) var sounds = [String:Sound]()
     
     // MARK: - Public
-    public func prepareSound(fileName fileName: String) -> String? {
+    @discardableResult
+    open func prepareSound(fileName: String) -> String? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
-            sound.count++
+            sound.count += 1
             return fixedSoundFileName
         }
         
         if let pathURL = pathURLForSound(fileName: fixedSoundFileName) {
             var soundID: SystemSoundID = 0
-            AudioServicesCreateSystemSoundID(pathURL, &soundID)
+            AudioServicesCreateSystemSoundID(pathURL as CFURL, &soundID)
             let sound = Sound(id: soundID)
             sounds[fixedSoundFileName] = sound
             return fixedSoundFileName
@@ -37,47 +38,47 @@ public class Chirp {
         return nil
     }
     
-    public func playSound(fileName fileName: String) {
+    open func playSound(fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
             AudioServicesPlaySystemSound(sound.id)
         }
     }
     
-    public func removeSound(fileName fileName: String) {
+    open func removeSound(fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
-            sound.count--
+            sound.count -= 1
             if sound.count <= 0 {
                 AudioServicesDisposeSystemSoundID(sound.id)
-                sounds.removeValueForKey(fixedSoundFileName)
+                sounds.removeValue(forKey: fixedSoundFileName)
             }
         }
     }
     
     // MARK: - Private
-    private func soundForKey(key: String) -> Sound? {
+    fileprivate func soundForKey(_ key: String) -> Sound? {
         return sounds[key]
     }
     
-    private func fixedSoundFileName(fileName fileName: String) -> String {
-        var fixedSoundFileName = fileName.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
-        var soundFileComponents = fixedSoundFileName.componentsSeparatedByString(".")
+    fileprivate func fixedSoundFileName(fileName: String) -> String {
+        var fixedSoundFileName = fileName.trimmingCharacters(in: .whitespacesAndNewlines)
+        var soundFileComponents = fixedSoundFileName.components(separatedBy: ".")
         if soundFileComponents.count == 1 {
             fixedSoundFileName = "\(soundFileComponents[0]).\(kDefaultExtension)"
         }
         return fixedSoundFileName
     }
     
-    private func pathForSound(fileName fileName: String) -> String? {
+    fileprivate func pathForSound(fileName: String) -> String? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
-        let components = fixedSoundFileName.componentsSeparatedByString(".")
-        return NSBundle.mainBundle().pathForResource(components[0], ofType: components[1])
+        let components = fixedSoundFileName.components(separatedBy: ".")
+        return Bundle.main.path(forResource: components[0], ofType: components[1])
     }
     
-    private func pathURLForSound(fileName fileName: String) -> NSURL? {
+    fileprivate func pathURLForSound(fileName: String) -> URL? {
         if let path = pathForSound(fileName: fileName) {
-            return NSURL(fileURLWithPath: path)
+            return URL(fileURLWithPath: path)
         }
         return nil
     }

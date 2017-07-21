@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09FF5B8E48F1A1A5067FA52E /* Pods_Chirp_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08767B6E47D4A35C84F52E7 /* Pods_Chirp_Tests.framework */; };
 		408B287C1C37CB0400134C54 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 408B287B1C37CB0400134C54 /* test.mp3 */; };
-		58B81BF2E9144D2356233F0C /* Pods_Chirp_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE37BAD0B8222C6C29530A7 /* Pods_Chirp_Tests.framework */; };
+		4AA0BEECA97A997A6D81CE69 /* Pods_Chirp_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBE80509AE92E509F8B3F45F /* Pods_Chirp_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		A0DE43C2AD5E37D52A4B8EB3 /* Pods_Chirp_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A645CDA60730354206884514 /* Pods_Chirp_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D08F1F7E15DFAF91FCC6AC4 /* Pods-Chirp_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2DF8CF50BB480B6148C8B5B0 /* Pods-Chirp_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example.release.xcconfig"; sourceTree = "<group>"; };
 		33E00A3E365EC22A2AAE4745 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		408B287B1C37CB0400134C54 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Chirp_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chirp_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,12 +42,12 @@
 		607FACE51AFB9204008FA782 /* Chirp_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Chirp_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6EE37BAD0B8222C6C29530A7 /* Pods_Chirp_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chirp_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		803AA0567E305FC6CB4D0D74 /* Pods-Chirp_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example.release.xcconfig"; sourceTree = "<group>"; };
-		A645CDA60730354206884514 /* Pods_Chirp_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chirp_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEAEB906FC42B468E426F236 /* Pods-Chirp_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		F07C60008AAFE07BDD314293 /* Pods-Chirp_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C311FC6E42DF057BB5559AB /* Pods-Chirp_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		DBE80509AE92E509F8B3F45F /* Pods_Chirp_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chirp_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDAC92AC263AE02DA5ADADF9 /* Pods-Chirp_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		F08767B6E47D4A35C84F52E7 /* Pods_Chirp_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chirp_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5D4D3082023E7EDA3113D34 /* Chirp.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Chirp.podspec; path = ../Chirp.podspec; sourceTree = "<group>"; };
+		F89655864DDEFAE14085A8C5 /* Pods-Chirp_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chirp_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FAA4C84C250C6C22FDCB6635 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0DE43C2AD5E37D52A4B8EB3 /* Pods_Chirp_Example.framework in Frameworks */,
+				4AA0BEECA97A997A6D81CE69 /* Pods_Chirp_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,20 +64,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58B81BF2E9144D2356233F0C /* Pods_Chirp_Tests.framework in Frameworks */,
+				09FF5B8E48F1A1A5067FA52E /* Pods_Chirp_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		05EABC27ED2F5A25F2C8DF56 /* Frameworks */ = {
+		03D3C64937E2FD4944C11922 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A645CDA60730354206884514 /* Pods_Chirp_Example.framework */,
-				6EE37BAD0B8222C6C29530A7 /* Pods_Chirp_Tests.framework */,
+				DBE80509AE92E509F8B3F45F /* Pods_Chirp_Example.framework */,
+				F08767B6E47D4A35C84F52E7 /* Pods_Chirp_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4549079B6826C63A84F992C2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F89655864DDEFAE14085A8C5 /* Pods-Chirp_Example.debug.xcconfig */,
+				2DF8CF50BB480B6148C8B5B0 /* Pods-Chirp_Example.release.xcconfig */,
+				8C311FC6E42DF057BB5559AB /* Pods-Chirp_Tests.debug.xcconfig */,
+				DDAC92AC263AE02DA5ADADF9 /* Pods-Chirp_Tests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -87,8 +98,8 @@
 				607FACD21AFB9204008FA782 /* Example for Chirp */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				E2E49E4DEE9C364D2FB66864 /* Pods */,
-				05EABC27ED2F5A25F2C8DF56 /* Frameworks */,
+				4549079B6826C63A84F992C2 /* Pods */,
+				03D3C64937E2FD4944C11922 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,17 +162,6 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		E2E49E4DEE9C364D2FB66864 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1D08F1F7E15DFAF91FCC6AC4 /* Pods-Chirp_Example.debug.xcconfig */,
-				803AA0567E305FC6CB4D0D74 /* Pods-Chirp_Example.release.xcconfig */,
-				F07C60008AAFE07BDD314293 /* Pods-Chirp_Tests.debug.xcconfig */,
-				BEAEB906FC42B468E426F236 /* Pods-Chirp_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,12 +169,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Chirp_Example" */;
 			buildPhases = (
-				2CD5A41BE535A4AA6D7F998D /* Check Pods Manifest.lock */,
+				744458C4D712E02D6FA53F50 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				33042904D59F6F7F73AAD766 /* Embed Pods Frameworks */,
-				88FADAAE2A9175D60B947C92 /* Copy Pods Resources */,
+				548026418B88BA3E1936E417 /* [CP] Embed Pods Frameworks */,
+				AB4C80CD35A7455E3A64D356 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,12 +189,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Chirp_Tests" */;
 			buildPhases = (
-				6ECCD7899C20D23A9FE77CB4 /* Check Pods Manifest.lock */,
+				84232B6DC9933392142300BD /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				C28F8D0A5E90953893EF52A4 /* Embed Pods Frameworks */,
-				43EF3242947AD8AB7788BFBF /* Copy Pods Resources */,
+				9172D3F5B04C588859BBB070 /* [CP] Embed Pods Frameworks */,
+				BF5C2A34924BED76BFADA672 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,9 +218,11 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0830;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0830;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -266,29 +268,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2CD5A41BE535A4AA6D7F998D /* Check Pods Manifest.lock */ = {
+		548026418B88BA3E1936E417 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		33042904D59F6F7F73AAD766 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,44 +283,59 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		43EF3242947AD8AB7788BFBF /* Copy Pods Resources */ = {
+		744458C4D712E02D6FA53F50 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6ECCD7899C20D23A9FE77CB4 /* Check Pods Manifest.lock */ = {
+		84232B6DC9933392142300BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		88FADAAE2A9175D60B947C92 /* Copy Pods Resources */ = {
+		9172D3F5B04C588859BBB070 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB4C80CD35A7455E3A64D356 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,19 +343,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Example/Pods-Chirp_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C28F8D0A5E90953893EF52A4 /* Embed Pods Frameworks */ = {
+		BF5C2A34924BED76BFADA672 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chirp_Tests/Pods-Chirp_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -490,7 +492,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D08F1F7E15DFAF91FCC6AC4 /* Pods-Chirp_Example.debug.xcconfig */;
+			baseConfigurationReference = F89655864DDEFAE14085A8C5 /* Pods-Chirp_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Chirp/Info.plist;
@@ -498,12 +500,13 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 803AA0567E305FC6CB4D0D74 /* Pods-Chirp_Example.release.xcconfig */;
+			baseConfigurationReference = 2DF8CF50BB480B6148C8B5B0 /* Pods-Chirp_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Chirp/Info.plist;
@@ -511,12 +514,13 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F07C60008AAFE07BDD314293 /* Pods-Chirp_Tests.debug.xcconfig */;
+			baseConfigurationReference = 8C311FC6E42DF057BB5559AB /* Pods-Chirp_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -531,13 +535,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chirp_Example.app/Chirp_Example";
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEAEB906FC42B468E426F236 /* Pods-Chirp_Tests.release.xcconfig */;
+			baseConfigurationReference = DDAC92AC263AE02DA5ADADF9 /* Pods-Chirp_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -548,6 +553,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chirp_Example.app/Chirp_Example";
 			};
 			name = Release;
