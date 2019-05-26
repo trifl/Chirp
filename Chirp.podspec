@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Chirp"
-  s.version          = "1.1.1"
+  s.version          = "1.2.0"
   s.summary          = "The easiest way to prepare, play, and remove sounds in your Swift app!"
 
 # This description is used to generate tags and improve search results.
@@ -31,9 +31,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'Chirp' => ['Pod/Assets/*.png']
-  }
+#  s.resource_bundles = {
+#    'Chirp' => ['Pod/Assets/*.png']
+#  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
