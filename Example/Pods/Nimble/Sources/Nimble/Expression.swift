@@ -24,8 +24,10 @@ internal func memoizedClosure<T>(_ closure: @escaping () throws -> T) -> (Bool) 
 /// This provides a common consumable API for matchers to utilize to allow
 /// Nimble to change internals to how the captured closure is managed.
 public struct Expression<T> {
+    // swiftlint:disable identifier_name
     internal let _expression: (Bool) throws -> T?
     internal let _withoutCaching: Bool
+    // swiftlint:enable identifier_name
     public let location: SourceLocation
     public let isClosure: Bool
 
@@ -77,7 +79,11 @@ public struct Expression<T> {
     /// @param block The block that can cast the current Expression value to a
     ///              new type.
     public func cast<U>(_ block: @escaping (T?) throws -> U?) -> Expression<U> {
-        return Expression<U>(expression: ({ try block(self.evaluate()) }), location: self.location, isClosure: self.isClosure)
+        return Expression<U>(
+            expression: ({ try block(self.evaluate()) }),
+            location: self.location,
+            isClosure: self.isClosure
+        )
     }
 
     public func evaluate() throws -> T? {
@@ -85,6 +91,11 @@ public struct Expression<T> {
     }
 
     public func withoutCaching() -> Expression<T> {
-        return Expression(memoizedExpression: self._expression, location: location, withoutCaching: true, isClosure: isClosure)
+        return Expression(
+            memoizedExpression: self._expression,
+            location: location,
+            withoutCaching: true,
+            isClosure: isClosure
+        )
     }
 }

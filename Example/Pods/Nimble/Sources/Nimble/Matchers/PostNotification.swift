@@ -3,7 +3,7 @@ import Foundation
 internal class NotificationCollector {
     private(set) var observedNotifications: [Notification]
     private let notificationCenter: NotificationCenter
-    #if _runtime(_ObjC)
+    #if canImport(Darwin)
     private var token: AnyObject?
     #else
     private var token: NSObjectProtocol?
@@ -15,14 +15,15 @@ internal class NotificationCollector {
     }
 
     func startObserving() {
-        self.token = self.notificationCenter.addObserver(forName: nil, object: nil, queue: nil) { [weak self] n in
+        // swiftlint:disable:next line_length
+        self.token = self.notificationCenter.addObserver(forName: nil, object: nil, queue: nil) { [weak self] notification in
             // linux-swift gets confused by .append(n)
-            self?.observedNotifications.append(n)
+            self?.observedNotifications.append(notification)
         }
     }
 
     deinit {
-        #if _runtime(_ObjC)
+        #if canImport(Darwin)
             if let token = self.token {
                 self.notificationCenter.removeObserver(token)
             }
@@ -36,11 +37,9 @@ internal class NotificationCollector {
 
 private let mainThread = pthread_self()
 
-let notificationCenterDefault = NotificationCenter.default
-
 public func postNotifications<T>(
     _ notificationsMatcher: T,
-    fromNotificationCenter center: NotificationCenter = notificationCenterDefault)
+    fromNotificationCenter center: NotificationCenter = .default)
     -> Predicate<Any>
     where T: Matcher, T.ValueType == [Notification]
 {
@@ -48,7 +47,8 @@ public func postNotifications<T>(
     let collector = NotificationCollector(notificationCenter: center)
     collector.startObserving()
     var once: Bool = false
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
+
+    return Predicate { actualExpression in
         let collectorNotificationsExpression = Expression(memoizedExpression: { _ in
             return collector.observedNotifications
             }, location: actualExpression.location, withoutCaching: true)
@@ -59,12 +59,13 @@ public func postNotifications<T>(
             _ = try actualExpression.evaluate()
         }
 
+        let failureMessage = FailureMessage()
         let match = try notificationsMatcher.matches(collectorNotificationsExpression, failureMessage: failureMessage)
         if collector.observedNotifications.isEmpty {
             failureMessage.actualValue = "no notifications"
         } else {
             failureMessage.actualValue = "<\(stringify(collector.observedNotifications))>"
         }
-        return match
+        return PredicateResult(bool: match, message: failureMessage.toExpectationMessage())
     }
 }

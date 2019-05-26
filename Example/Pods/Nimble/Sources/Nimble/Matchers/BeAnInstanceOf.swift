@@ -33,7 +33,7 @@ public func beAnInstanceOf(_ expectedClass: AnyClass) -> Predicate<NSObject> {
         } else {
             actualString = "<nil>"
         }
-        #if _runtime(_ObjC)
+        #if canImport(Darwin)
             let matches = instance != nil && instance!.isMember(of: expectedClass)
         #else
             let matches = instance != nil && type(of: instance!) == expectedClass
@@ -45,11 +45,11 @@ public func beAnInstanceOf(_ expectedClass: AnyClass) -> Predicate<NSObject> {
     }
 }
 
-#if _runtime(_ObjC)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    public class func beAnInstanceOfMatcher(_ expected: AnyClass) -> NMBMatcher {
-        return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
-            return try! beAnInstanceOf(expected).matches(actualExpression, failureMessage: failureMessage)
+    @objc public class func beAnInstanceOfMatcher(_ expected: AnyClass) -> NMBMatcher {
+        return NMBPredicate { actualExpression in
+            return try beAnInstanceOf(expected).satisfies(actualExpression).toObjectiveC()
         }
     }
 }

@@ -1,12 +1,17 @@
 PODS:
   - Chirp (1.1.1)
-  - Nimble (7.0.1)
-  - Quick (1.1.0)
+  - Nimble (8.0.1)
+  - Quick (2.1.0)
 
 DEPENDENCIES:
   - Chirp (from `../`)
   - Nimble
   - Quick
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
 
 EXTERNAL SOURCES:
   Chirp:
@@ -14,9 +19,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Chirp: e06920df90dd33b3e74c988c58f621a8a1e41e7d
-  Nimble: 657d000e11df8aebe27cdaf9d244de7f30ed87f7
-  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
 
-PODFILE CHECKSUM: 78263a1313e56c4d273bd6ef51c8c3f15b948474
+PODFILE CHECKSUM: 5a87d3d4659f3d1a40d3397ed7655b016dea8724
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.7.0

@@ -2,7 +2,7 @@ import CoreFoundation
 import Dispatch
 import Foundation
 
-#if !_runtime(_ObjC)
+#if canImport(CDispatch)
     import CDispatch
 #endif
 
@@ -32,7 +32,7 @@ internal class AssertionWaitLock: WaitLock {
 
     func acquireWaitingLock(_ fnName: String, file: FileString, line: UInt) {
         let info = WaitingInfo(name: fnName, file: file, lineNumber: line)
-        #if _runtime(_ObjC)
+        #if canImport(Darwin)
             let isMainThread = Thread.isMainThread
         #else
             let isMainThread = _CFIsMainThread()
@@ -45,10 +45,15 @@ internal class AssertionWaitLock: WaitLock {
         nimblePrecondition(
             currentWaiter == nil,
             "InvalidNimbleAPIUsage",
-            "Nested async expectations are not allowed to avoid creating flaky tests.\n\n" +
-            "The call to\n\t\(info)\n" +
-            "triggered this exception because\n\t\(currentWaiter!)\n" +
-            "is currently managing the main run loop."
+            """
+            Nested async expectations are not allowed to avoid creating flaky tests.
+
+            The call to
+            \t\(info)
+            triggered this exception because
+            \t\(currentWaiter!)
+            is currently managing the main run loop.
+            """
         )
         currentWaiter = info
     }
@@ -89,7 +94,7 @@ internal enum AwaitResult<T> {
 
     func isCompleted() -> Bool {
         switch self {
-        case .completed(_): return true
+        case .completed: return true
         default: return false
         }
     }
@@ -103,6 +108,10 @@ internal class AwaitPromise<T> {
 
     init() {
         signal = DispatchSemaphore(value: 1)
+    }
+
+    deinit {
+        signal.signal()
     }
 
     /// Resolves the promise with the given result if it has not been resolved. Repeated calls to
@@ -176,16 +185,18 @@ internal class AwaitPromiseBuilder<T> {
         // checked.
         //
         // In addition, stopping the run loop is used to halt code executed on the main run loop.
-        trigger.timeoutSource.scheduleOneshot(
+        trigger.timeoutSource.schedule(
             deadline: DispatchTime.now() + timeoutInterval,
-            leeway: timeoutLeeway)
+            repeating: .never,
+            leeway: timeoutLeeway
+        )
         trigger.timeoutSource.setEventHandler {
             guard self.promise.asyncResult.isIncomplete() else { return }
             let timedOutSem = DispatchSemaphore(value: 0)
             let semTimedOutOrBlocked = DispatchSemaphore(value: 0)
             semTimedOutOrBlocked.signal()
             let runLoop = CFRunLoopGetMain()
-            #if _runtime(_ObjC)
+            #if canImport(Darwin)
                 let runLoopMode = CFRunLoopMode.defaultMode.rawValue
             #else
                 let runLoopMode = kCFRunLoopDefaultMode
@@ -250,9 +261,13 @@ internal class AwaitPromiseBuilder<T> {
             self.trigger.timeoutSource.resume()
             while self.promise.asyncResult.isIncomplete() {
                 // Stopping the run loop does not work unless we run only 1 mode
+                #if (swift(>=4.2) && canImport(Darwin)) || compiler(>=5.0)
+                _ = RunLoop.current.run(mode: .default, before: .distantFuture)
+                #else
                 _ = RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
+                #endif
             }
-            self.trigger.timeoutSource.suspend()
+
             self.trigger.timeoutSource.cancel()
             if let asyncSource = self.trigger.actionSource {
                 asyncSource.cancel()
@@ -316,7 +331,7 @@ internal class Awaiter {
         let asyncSource = createTimerSource(asyncQueue)
         let trigger = AwaitTrigger(timeoutSource: timeoutSource, actionSource: asyncSource) {
             let interval = DispatchTimeInterval.nanoseconds(Int(pollInterval * TimeInterval(NSEC_PER_SEC)))
-            asyncSource.scheduleRepeating(deadline: .now(), interval: interval, leeway: pollLeeway)
+            asyncSource.schedule(deadline: .now(), repeating: interval, leeway: pollLeeway)
             asyncSource.setEventHandler {
                 do {
                     if let result = try closure() {

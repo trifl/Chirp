@@ -63,12 +63,12 @@ private func createPredicate<S>(_ elementMatcher: Predicate<S.Iterator.Element>)
         }
 }
 
-#if _runtime(_ObjC)
+#if canImport(Darwin)
 extension NMBObjCMatcher {
-    public class func allPassMatcher(_ matcher: NMBMatcher) -> NMBPredicate {
+    @objc public class func allPassMatcher(_ matcher: NMBMatcher) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let location = actualExpression.location
-            let actualValue = try! actualExpression.evaluate()
+            let actualValue = try actualExpression.evaluate()
             var nsObjects = [NSObject]()
 
             var collectionIsUsable = true
@@ -90,6 +90,7 @@ extension NMBObjCMatcher {
                 return NMBPredicateResult(
                     status: NMBPredicateStatus.fail,
                     message: NMBExpectationMessage(
+                        // swiftlint:disable:next line_length
                         fail: "allPass can only be used with types which implement NSFastEnumeration (NSArray, NSSet, ...), and whose elements subclass NSObject, got <\(actualValue?.description ?? "nil")>"
                     )
                 )
@@ -98,10 +99,11 @@ extension NMBObjCMatcher {
             let expr = Expression(expression: ({ nsObjects }), location: location)
             let pred: Predicate<[NSObject]> = createPredicate(Predicate { expr in
                 if let predicate = matcher as? NMBPredicate {
-                    return predicate.satisfies(({ try! expr.evaluate() }), location: expr.location).toSwift()
+                    return predicate.satisfies(({ try expr.evaluate() }), location: expr.location).toSwift()
                 } else {
                     let failureMessage = FailureMessage()
                     let result = matcher.matches(
+                        // swiftlint:disable:next force_try
                         ({ try! expr.evaluate() }),
                         failureMessage: failureMessage,
                         location: expr.location
@@ -113,7 +115,7 @@ extension NMBObjCMatcher {
                     )
                 }
             })
-            return try! pred.satisfies(expr).toObjectiveC()
+            return try pred.satisfies(expr).toObjectiveC()
         }
     }
 }

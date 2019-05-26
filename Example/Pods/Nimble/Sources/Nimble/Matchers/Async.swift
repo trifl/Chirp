@@ -7,7 +7,7 @@ public struct AsyncDefaults {
     public static var PollInterval: TimeInterval = 0.01
 }
 
-fileprivate func async<T>(style: ExpectationStyle, predicate: Predicate<T>, timeout: TimeInterval, poll: TimeInterval, fnName: String) -> Predicate<T> {
+private func async<T>(style: ExpectationStyle, predicate: Predicate<T>, timeout: TimeInterval, poll: TimeInterval, fnName: String) -> Predicate<T> {
     return Predicate { actualExpression in
         let uncachedExpression = actualExpression.withoutCaching()
         let fnName = "expect(...).\(fnName)(...)"
@@ -23,89 +23,30 @@ fileprivate func async<T>(style: ExpectationStyle, predicate: Predicate<T>, time
         }
         switch result {
         case .completed: return lastPredicateResult!
-        case .timedOut: return PredicateResult(status: .fail, message: lastPredicateResult!.message)
+        case .timedOut:
+            let message = lastPredicateResult?.message ?? .fail("timed out before returning a value")
+            return PredicateResult(status: .fail, message: message)
         case let .errorThrown(error):
             return PredicateResult(status: .fail, message: .fail("unexpected error thrown: <\(error)>"))
         case let .raisedException(exception):
             return PredicateResult(status: .fail, message: .fail("unexpected exception raised: \(exception)"))
         case .blockedRunLoop:
-            return PredicateResult(status: .fail, message: lastPredicateResult!.message.appended(message: " (timed out, but main thread was unresponsive)."))
+            // swiftlint:disable:next line_length
+            let message = lastPredicateResult?.message.appended(message: " (timed out, but main run loop was unresponsive).") ??
+                .fail("main run loop was unresponsive")
+            return PredicateResult(status: .fail, message: message)
         case .incomplete:
-            internalError("Reached .incomplete state for toEventually(...).")
+            internalError("Reached .incomplete state for \(fnName)(...).")
         }
     }
 }
 
-// Deprecated
-internal struct AsyncMatcherWrapper<T, U>: Matcher
-    where U: Matcher, U.ValueType == T {
-    let fullMatcher: U
-    let timeoutInterval: TimeInterval
-    let pollInterval: TimeInterval
-
-    init(fullMatcher: U, timeoutInterval: TimeInterval = AsyncDefaults.Timeout, pollInterval: TimeInterval = AsyncDefaults.PollInterval) {
-      self.fullMatcher = fullMatcher
-      self.timeoutInterval = timeoutInterval
-      self.pollInterval = pollInterval
-    }
-
-    func matches(_ actualExpression: Expression<T>, failureMessage: FailureMessage) -> Bool {
-        let uncachedExpression = actualExpression.withoutCaching()
-        let fnName = "expect(...).toEventually(...)"
-        let result = pollBlock(
-            pollInterval: pollInterval,
-            timeoutInterval: timeoutInterval,
-            file: actualExpression.location.file,
-            line: actualExpression.location.line,
-            fnName: fnName) {
-                try self.fullMatcher.matches(uncachedExpression, failureMessage: failureMessage)
-        }
-        switch result {
-        case let .completed(isSuccessful): return isSuccessful
-        case .timedOut: return false
-        case let .errorThrown(error):
-            failureMessage.stringValue = "an unexpected error thrown: <\(error)>"
-            return false
-        case let .raisedException(exception):
-            failureMessage.stringValue = "an unexpected exception thrown: <\(exception)>"
-            return false
-        case .blockedRunLoop:
-            failureMessage.postfixMessage += " (timed out, but main thread was unresponsive)."
-            return false
-        case .incomplete:
-            internalError("Reached .incomplete state for toEventually(...).")
-        }
-    }
-
-    func doesNotMatch(_ actualExpression: Expression<T>, failureMessage: FailureMessage) -> Bool {
-        let uncachedExpression = actualExpression.withoutCaching()
-        let result = pollBlock(
-            pollInterval: pollInterval,
-            timeoutInterval: timeoutInterval,
-            file: actualExpression.location.file,
-            line: actualExpression.location.line,
-            fnName: "expect(...).toEventuallyNot(...)") {
-                try self.fullMatcher.doesNotMatch(uncachedExpression, failureMessage: failureMessage)
-        }
-        switch result {
-        case let .completed(isSuccessful): return isSuccessful
-        case .timedOut: return false
-        case let .errorThrown(error):
-            failureMessage.stringValue = "an unexpected error thrown: <\(error)>"
-            return false
-        case let .raisedException(exception):
-            failureMessage.stringValue = "an unexpected exception thrown: <\(exception)>"
-            return false
-        case .blockedRunLoop:
-            failureMessage.postfixMessage += " (timed out, but main thread was unresponsive)."
-            return false
-        case .incomplete:
-            internalError("Reached .incomplete state for toEventuallyNot(...).")
-        }
-    }
-}
-
-private let toEventuallyRequiresClosureError = FailureMessage(stringValue: "expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )\nSwift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function")
+private let toEventuallyRequiresClosureError = FailureMessage(
+    stringValue: """
+        expect(...).toEventually(...) requires an explicit closure (eg - expect { ... }.toEventually(...) )
+        Swift 1.2 @autoclosure behavior has changed in an incompatible way for Nimble to function
+        """
+)
 
 extension Expectation {
     /// Tests the actual value using a matcher to match by checking continuously
@@ -140,7 +81,13 @@ extension Expectation {
         let (pass, msg) = execute(
             expression,
             .toNotMatch,
-            async(style: .toNotMatch, predicate: predicate, timeout: timeout, poll: pollInterval, fnName: "toEventuallyNot"),
+            async(
+                style: .toNotMatch,
+                predicate: predicate,
+                timeout: timeout,
+                poll: pollInterval,
+                fnName: "toEventuallyNot"
+            ),
             to: "to eventually not",
             description: description,
             captureExceptions: false
@@ -172,14 +119,19 @@ extension Expectation {
     public func toEventually<U>(_ matcher: U, timeout: TimeInterval = AsyncDefaults.Timeout, pollInterval: TimeInterval = AsyncDefaults.PollInterval, description: String? = nil)
         where U: Matcher, U.ValueType == T {
         if expression.isClosure {
-            let (pass, msg) = expressionMatches(
+            let (pass, msg) = execute(
                 expression,
-                matcher: AsyncMatcherWrapper(
-                    fullMatcher: matcher,
-                    timeoutInterval: timeout,
-                    pollInterval: pollInterval),
+                .toMatch,
+                async(
+                    style: .toMatch,
+                    predicate: matcher.predicate,
+                    timeout: timeout,
+                    poll: pollInterval,
+                    fnName: "toEventually"
+                ),
                 to: "to eventually",
-                description: description
+                description: description,
+                captureExceptions: false
             )
             verify(pass, msg)
         } else {
@@ -198,10 +150,13 @@ extension Expectation {
         if expression.isClosure {
             let (pass, msg) = expressionDoesNotMatch(
                 expression,
-                matcher: AsyncMatcherWrapper(
-                    fullMatcher: matcher,
-                    timeoutInterval: timeout,
-                    pollInterval: pollInterval),
+                matcher: async(
+                    style: .toNotMatch,
+                    predicate: matcher.predicate,
+                    timeout: timeout,
+                    poll: pollInterval,
+                    fnName: "toEventuallyNot"
+                ),
                 toNot: "to eventually not",
                 description: description
             )
